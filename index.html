@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Christian Årebrand</title>
   <meta name="description" content="Personlig sida för Christian Årebrand." />
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
     :root {
       --bg: #0f1115;
@@ -190,7 +191,39 @@
     .meta span {
       opacity: 0.95;
     }
-    
+    .status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #9fe3b0;
+  box-shadow: 0 0 0 6px rgba(159, 227, 176, 0.12);
+  position: relative;
+}
+
+/* glow pulse */
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(159, 227, 176, 0.5);
+  animation: pulse 2.5s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
     .easter-egg {
       position: fixed;
       inset: 0;
