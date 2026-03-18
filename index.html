@@ -120,6 +120,23 @@
       border-color: rgba(143, 184, 255, 0.45);
     }
 
+    .mail-button {
+      cursor: default;
+      user-select: none;
+    }
+
+    .mail-button:hover {
+      transform: none;
+      background: var(--text);
+    }
+
+    .mail-image {
+      display: block;
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+    }
+
     .meta {
       margin-top: 36px;
       padding-top: 20px;
@@ -148,6 +165,10 @@
       .button {
         width: 100%;
       }
+
+      .mail-image {
+        max-width: 220px;
+      }
     }
   </style>
 </head>
@@ -162,7 +183,9 @@
     </p>
 
     <div class="links">
-      <a class="button primary" href="mailto:kontakt@arebrand.se">kontakt@arebrand.se</a>
+      <div class="button primary mail-button" aria-label="kontakt [at] arebrand.se">
+        <img src="mail.png" alt="kontakt [at] arebrand.se" class="mail-image">
+      </div>
       <a class="button secondary" href="https://www.linkedin.com/in/christian-arebrand-38049488" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
 
