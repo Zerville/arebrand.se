@@ -15,6 +15,7 @@
       --accent: #8fb8ff;
       --accent-hover: #b7d0ff;
       --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --success: #9fe3b0;
     }
 
     * {
@@ -37,6 +38,7 @@
       display: grid;
       place-items: center;
       padding: 24px;
+      overflow-x: hidden;
     }
 
     .card {
@@ -49,6 +51,14 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       padding: 48px 32px;
+      animation: fadeInUp 0.55s ease;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+      border-color: rgba(143, 184, 255, 0.18);
+      transform: translateY(-1px);
     }
 
     .eyebrow {
@@ -71,11 +81,30 @@
     }
 
     .lead {
-      margin: 0 0 22px;
+      margin: 0 0 14px;
       color: var(--muted);
       font-size: clamp(1.05rem, 2vw, 1.2rem);
       line-height: 1.6;
       max-width: 58ch;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 0.96rem;
+      opacity: 0.95;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 6px rgba(159, 227, 176, 0.12);
+      flex: 0 0 auto;
     }
 
     .links {
@@ -83,6 +112,7 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 28px;
+      align-items: center;
     }
 
     .button {
@@ -94,7 +124,7 @@
       border-radius: 12px;
       text-decoration: none;
       font-weight: 600;
-      transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+      transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
     }
 
     .button.primary {
@@ -118,6 +148,7 @@
       transform: translateY(-1px);
       color: var(--accent-hover);
       border-color: rgba(143, 184, 255, 0.45);
+      box-shadow: 0 0 0 1px rgba(143, 184, 255, 0.08) inset;
     }
 
     .mail-button {
@@ -128,6 +159,7 @@
     .mail-button:hover {
       transform: none;
       background: var(--text);
+      box-shadow: none;
     }
 
     .mail-image {
@@ -135,6 +167,13 @@
       width: 100%;
       max-width: 220px;
       height: auto;
+    }
+
+    .helper-text {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      opacity: 0.86;
     }
 
     .meta {
@@ -152,6 +191,40 @@
       opacity: 0.95;
     }
 
+    .easter-egg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 999;
+    }
+
+    .easter-egg.show {
+      opacity: 1;
+    }
+
+    .easter-egg span {
+      font-size: clamp(2rem, 9vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: rgba(255, 255, 255, 0.06);
+      text-shadow: 0 0 40px rgba(143, 184, 255, 0.12);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     @media (max-width: 640px) {
       .card {
         padding: 34px 22px;
@@ -160,6 +233,7 @@
 
       .links {
         flex-direction: column;
+        align-items: stretch;
       }
 
       .button {
@@ -168,6 +242,10 @@
 
       .mail-image {
         max-width: 220px;
+      }
+
+      .meta {
+        gap: 8px 14px;
       }
     }
   </style>
@@ -182,18 +260,54 @@
       Personlig domän för kontakt, identitet och utvalda länkar.
     </p>
 
+    <div class="status">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Currently building stuff & optimizing systems</span>
+    </div>
+
     <div class="links">
       <div class="button primary mail-button" aria-label="kontakt [at] arebrand.se">
         <img src="mail.png" alt="kontakt [at] arebrand.se" class="mail-image">
       </div>
+
       <a class="button secondary" href="https://www.linkedin.com/in/christian-arebrand-38049488" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+
+    <div class="helper-text">
+      Kontakta mig gärna via LinkedIn i första hand.
     </div>
 
     <div class="meta">
       <span>Engineer</span>
       <span>Tech enthusiast</span>
       <span>Borlänge, Sweden</span>
+      <span id="clock">Local time: --:--:--</span>
     </div>
   </main>
+
+  <div class="easter-egg" id="easterEgg"><span>🎯 Bullseye!</span></div>
+
+  <script>
+    const clock = document.getElementById("clock");
+    const easterEgg = document.getElementById("easterEgg");
+
+    function updateClock() {
+      const now = new Date();
+      clock.textContent = "Local time: " + now.toLocaleTimeString("sv-SE");
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key.toLowerCase() === "d") {
+        easterEgg.classList.add("show");
+        clearTimeout(document._eggTimeout);
+        document._eggTimeout = setTimeout(() => {
+          easterEgg.classList.remove("show");
+        }, 900);
+      }
+    });
+  </script>
 </body>
 </html>
