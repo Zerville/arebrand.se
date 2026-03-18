@@ -83,6 +83,7 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 28px;
+      align-items: stretch;
     }
 
     .button {
@@ -121,20 +122,22 @@
     }
 
     .mail-button {
-      cursor: default;
-      user-select: none;
-    }
-
-    .mail-button:hover {
-      transform: none;
+      min-height: 46px;
+      padding: 10px 16px;
       background: var(--text);
+      border: 1px solid transparent;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
     }
 
     .mail-image {
       display: block;
-      width: 100%;
-      max-width: 220px;
-      height: auto;
+      height: 22px;
+      width: auto;
+      max-width: 100%;
     }
 
     .meta {
@@ -162,12 +165,13 @@
         flex-direction: column;
       }
 
-      .button {
+      .button,
+      .mail-button {
         width: 100%;
       }
 
       .mail-image {
-        max-width: 220px;
+        height: 20px;
       }
     }
   </style>
@@ -183,9 +187,10 @@
     </p>
 
     <div class="links">
-      <div class="button primary mail-button" aria-label="kontakt [at] arebrand.se">
+      <div class="mail-button" aria-label="kontakt [at] arebrand.se">
         <img src="mail.png" alt="kontakt [at] arebrand.se" class="mail-image">
       </div>
+
       <a class="button secondary" href="https://www.linkedin.com/in/christian-arebrand-38049488" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
 
